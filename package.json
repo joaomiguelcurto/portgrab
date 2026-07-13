@@ -1,0 +1,41 @@
+{
+  "name": "portgrab",
+  "version": "1.0.0",
+  "description": "A zero-backend JS library that fetches an artist's portfolio from Instagram, DeviantArt, and more, normalizing it into clean data.",
+  "type": "module",
+  "main": "./dist/portgrab.umd.js",
+  "module": "./dist/portgrab.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/portgrab.es.js",
+      "require": "./dist/portgrab.umd.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "echo \"no tests yet\""
+  },
+  "keywords": [
+    "portfolio",
+    "artist",
+    "instagram",
+    "deviantart",
+    "widget"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaomiguelcurto/portgrab.git"
+  },
+  "homepage": "https://github.com/joaomiguelcurto/portgrab#readme",
+  "bugs": {
+    "url": "https://github.com/joaomiguelcurto/portgrab/issues"
+  },
+  "devDependencies": {
+    "vite": "^8.1.4"
+  }
+}
