@@ -1,13 +1,12 @@
 // connectors/deviantart.js
-// Fetches an artist's public gallery from DeviantArt and normalizes it.
+// Fetches an artists public gallery from DeviantArt and normalizes it.
 
 import { createPortfolioItem } from '../schema.js';
 
 const TOKEN_URL = 'https://www.deviantart.com/oauth2/token';
 const GALLERY_URL = 'https://www.deviantart.com/api/v1/oauth2/gallery/all';
 
-// Gets a short-lived access token.
-// This is DeviantArt's "client credentials" flow, it does not require the artist to log in
+// Gets a short-lived access token using the app client_id/client_secret.
 async function getAccessToken(clientId, clientSecret) {
   const params = new URLSearchParams({
     client_id: clientId,
@@ -48,13 +47,20 @@ export async function fetchDeviantArtPortfolio({ username, clientId, clientSecre
 
   const accessToken = await getAccessToken(clientId, clientSecret);
 
+  // The token goes in an Authorization header, not the query string.
+  // DeviantArt rejects the request with a confusing "must provide an
+  // access_token" error if you try to pass it as a query param here.
   const params = new URLSearchParams({
     username,
-    access_token: accessToken,
-    limit: '24', // DeviantArt's max per request, ill think about adding pagination later
+    limit: '24',
   });
 
-  const res = await fetch(`${GALLERY_URL}?${params.toString()}`);
+  const res = await fetch(`${GALLERY_URL}?${params.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
   if (!res.ok) {
     throw new Error(`DeviantArt gallery request failed: ${res.status}`);
   }

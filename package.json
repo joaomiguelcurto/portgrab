@@ -36,6 +36,7 @@
     "url": "https://github.com/joaomiguelcurto/portgrab/issues"
   },
   "devDependencies": {
+    "dotenv": "^17.4.2",
     "vite": "^8.1.4"
   }
 }

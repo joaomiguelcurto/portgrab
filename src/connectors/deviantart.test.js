@@ -1,11 +1,10 @@
 // connectors/deviantart.test.js
-// Tests DeviantArt connector using fake network responses.
+// Tests the DeviantArt connector using fake network responses.
 // Run with: node src/connectors/deviantart.test.js
 
 import { fetchDeviantArtPortfolio } from './deviantart.js';
 
-// Fake responses simulating real DeviantArt API responses.
-const fakeTokenResponse = { access_token: 'lmao-token-123' };
+const fakeTokenResponse = { access_token: 'focken-123' };
 
 const fakeGalleryResponse = {
   results: [
@@ -30,16 +29,18 @@ const fakeGalleryResponse = {
   ],
 };
 
-// Replaces the global fetch function with a fake.
-global.fetch = async (url) => {
-  const isTokenRequest = url.startsWith('https://www.deviantart.com/oauth2/token');
-  const body = isTokenRequest ? fakeTokenResponse : fakeGalleryResponse;
+// Tracks whether the gallery request included the right Authorization header.
+let galleryRequestHeaders = null;
 
-  return {
-    ok: true,
-    status: 200,
-    json: async () => body,
-  };
+global.fetch = async (url, options) => {
+  const isTokenRequest = url.startsWith('https://www.deviantart.com/oauth2/token');
+
+  if (isTokenRequest) {
+    return { ok: true, status: 200, json: async () => fakeTokenResponse };
+  }
+
+  galleryRequestHeaders = options?.headers ?? {};
+  return { ok: true, status: 200, json: async () => fakeGalleryResponse };
 };
 
 const items = await fetchDeviantArtPortfolio({
@@ -48,8 +49,15 @@ const items = await fetchDeviantArtPortfolio({
   clientSecret: 'fake-client-secret',
 });
 
-console.log('Fetched items:', items);
 console.log('Count:', items.length);
 console.log('First item title:', items[0].title);
 console.log('First item tags:', items[0].tags);
 console.log('Second item tags (should be empty array):', items[1].tags);
+
+const expectedAuthHeader = 'Bearer foken-123';
+const gotAuthHeader = galleryRequestHeaders?.Authorization;
+console.log(
+  'Authorization header sent correctly?',
+  gotAuthHeader === expectedAuthHeader,
+  `(got: "${gotAuthHeader}")`
+);
