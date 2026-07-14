@@ -1,0 +1,45 @@
+/* style/default.css
+   Default look for portfolio-gallery. Every value uses a --pg-* custom
+   property with a fallback, override these
+   without editing this file. 
+   
+   Ill maybe make something more... developed later on so it doesnt look so basic */
+
+portfolio-gallery {
+  display: block;
+}
+
+.pg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--pg-gap, 16px);
+}
+
+.pg-item {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--pg-border-radius, 8px);
+  overflow: hidden;
+  background: var(--pg-bg, #111);
+}
+
+.pg-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.pg-caption {
+  padding: 8px;
+  font-size: 14px;
+  color: var(--pg-caption-color, #eee);
+}
+
+.pg-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--pg-caption-color, #888);
+}

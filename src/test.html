@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PortfolioGallery test</title>
+  <link rel="stylesheet" href="./style/default.css" />
+  <style>
+    body { background: #1a1a1a; font-family: sans-serif; padding: 24px; }
+  </style>
+</head>
+<body>
+  <h1 style="color: #eee;">PortfolioGallery test</h1>
+  <portfolio-gallery></portfolio-gallery>
+
+  <script type="module">
+    import './PortfolioGallery.js';
+
+    const fakeItems = [
+      {
+        id: 'a1',
+        title: 'Forest Sprite',
+        description: 'A digital painting',
+        tags: ['fantasy'],
+        platform: 'deviantart',
+        images: ['https://placehold.co/400x400?text=Forest+Sprite'],
+        sourceUrl: 'https://deviantart.com/a/forest',
+        createdAt: '2026-01-01T00:00:00.000Z',
+      },
+      {
+        id: 'a2',
+        title: 'Ocean Dream',
+        description: '',
+        tags: [],
+        platform: 'instagram',
+        images: ['https://placehold.co/400x400?text=Ocean+Dream'],
+        sourceUrl: 'https://instagram.com/p/a2',
+        createdAt: '2026-01-02T00:00:00.000Z',
+      },
+      {
+        id: 'a3',
+        title: 'City Lights',
+        description: '',
+        tags: [],
+        platform: 'deviantart',
+        images: ['https://placehold.co/400x400?text=City+Lights'],
+        sourceUrl: 'https://deviantart.com/a/city',
+        createdAt: '2026-01-03T00:00:00.000Z',
+      },
+    ];
+
+    const gallery = document.querySelector('portfolio-gallery');
+    gallery.items = fakeItems;
+  </script>
+</body>
+</html>
