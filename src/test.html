@@ -16,40 +16,36 @@
     import './PortfolioGallery.js';
 
     const fakeItems = [
-      {
-        id: 'a1',
-        title: 'Forest Sprite',
-        description: 'A digital painting',
-        tags: ['fantasy'],
-        platform: 'deviantart',
-        images: ['https://placehold.co/400x400?text=Forest+Sprite'],
-        sourceUrl: 'https://deviantart.com/a/forest',
-        createdAt: '2026-01-01T00:00:00.000Z',
-      },
-      {
-        id: 'a2',
-        title: 'Ocean Dream',
-        description: '',
-        tags: [],
-        platform: 'instagram',
-        images: ['https://placehold.co/400x400?text=Ocean+Dream'],
-        sourceUrl: 'https://instagram.com/p/a2',
-        createdAt: '2026-01-02T00:00:00.000Z',
-      },
-      {
-        id: 'a3',
-        title: 'City Lights',
-        description: '',
-        tags: [],
-        platform: 'deviantart',
-        images: ['https://placehold.co/400x400?text=City+Lights'],
-        sourceUrl: 'https://deviantart.com/a/city',
-        createdAt: '2026-01-03T00:00:00.000Z',
-      },
+      { id: 'a1', title: 'Forest Sprite', description: '', tags: [], platform: 'deviantart', images: ['https://placehold.co/400x400?text=1'], sourceUrl: 'https://deviantart.com/a/forest', createdAt: '2026-01-01' },
+      { id: 'a2', title: 'Ocean Dream', description: '', tags: [], platform: 'instagram', images: ['https://placehold.co/400x400?text=2'], sourceUrl: 'https://instagram.com/p/a2', createdAt: '2026-01-02' },
+      { id: 'a3', title: 'City Lights', description: '', tags: [], platform: 'deviantart', images: ['https://placehold.co/400x400?text=3'], sourceUrl: 'https://deviantart.com/a/city', createdAt: '2026-01-03' },
+      { id: 'a4', title: 'Mountain Peak', description: '', tags: [], platform: 'deviantart', images: ['https://placehold.co/400x400?text=4'], sourceUrl: 'https://deviantart.com/a/mountain', createdAt: '2026-01-04' },
+      { id: 'a5', title: 'Desert Sun', description: '', tags: [], platform: 'instagram', images: ['https://placehold.co/400x400?text=5'], sourceUrl: 'https://instagram.com/p/a5', createdAt: '2026-01-05' },
+      { id: 'a6', title: 'Rainy Street', description: '', tags: [], platform: 'deviantart', images: ['https://placehold.co/400x400?text=6'], sourceUrl: 'https://deviantart.com/a/rain', createdAt: '2026-01-06' },
     ];
+
+    // Pin item a3 as featured, and group a4/a5/a6 into a stack.
+    const curationConfig = {
+      pins: [
+        { match: 'id', value: 'a3', display: 'featured', position: 'top' },
+      ],
+      groups: [
+        {
+          label: 'trio',
+          layout: 'stack',
+          position: 'top',
+          items: [
+            { match: 'id', value: 'a4' },
+            { match: 'id', value: 'a5' },
+            { match: 'id', value: 'a6' },
+          ],
+        },
+      ],
+    };
 
     const gallery = document.querySelector('portfolio-gallery');
     gallery.items = fakeItems;
+    gallery.curationConfig = curationConfig;
   </script>
 </body>
 </html>

@@ -8,13 +8,13 @@
 portfolio-gallery {
   display: block;
 }
-
+ 
 .pg-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: var(--pg-gap, 16px);
 }
-
+ 
 .pg-item {
   display: block;
   text-decoration: none;
@@ -23,7 +23,7 @@ portfolio-gallery {
   overflow: hidden;
   background: var(--pg-bg, #111);
 }
-
+ 
 .pg-image {
   width: 100%;
   height: auto;
@@ -31,7 +31,7 @@ portfolio-gallery {
   aspect-ratio: 1 / 1;
   object-fit: cover;
 }
-
+ 
 .pg-caption {
   padding: 8px;
   font-size: 14px;
@@ -43,3 +43,39 @@ portfolio-gallery {
   text-align: center;
   color: var(--pg-caption-color, #888);
 }
+
+.pg-pinned {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.pg-group {
+  grid-column: span 2;
+  display: grid;
+  gap: var(--pg-gap, 16px);
+}
+ 
+.pg-group--stack {
+  position: relative;
+}
+.pg-group--stack .pg-item {
+  position: absolute;
+  inset: 0;
+}
+.pg-group--stack .pg-item:nth-child(2) {
+  transform: translate(12px, 12px);
+}
+.pg-group--stack .pg-item:nth-child(3) {
+  transform: translate(24px, 24px);
+}
+ 
+.pg-group--grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+ 
+.pg-group--carousel {
+  grid-auto-flow: column;
+  overflow-x: auto;
+}
+ 
+ 

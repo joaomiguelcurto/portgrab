@@ -12,26 +12,39 @@ function escapeHtml(str) {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;');
 }
-
-// Renders a single item as one gallery card.
-// Class names and data-platform match what the spec promises artists
-// for custom CSS targeting.
-function renderItem(item) {
+ 
+// Renders one item as a gallery card. Adds pg-pinned if it was pinned
+// by the artists curation config.
+function renderCard(item) {
   const image = item.images[0] ?? '';
-
+  const pinnedClass = item.curation?.pinned ? ' pg-pinned' : '';
+ 
   return `
-    <a class="pg-item" href="${escapeHtml(item.sourceUrl)}" data-platform="${escapeHtml(item.platform)}" target="_blank" rel="noopener">
+    <a class="pg-item${pinnedClass}" href="${escapeHtml(item.sourceUrl)}" data-platform="${escapeHtml(item.platform)}" target="_blank" rel="noopener">
       <img class="pg-image" src="${escapeHtml(image)}" alt="${escapeHtml(item.title)}" loading="lazy" />
       <div class="pg-caption">${escapeHtml(item.title)}</div>
     </a>
   `;
 }
-
-// Main export: takes the full items array, returns the full gallery HTML.
-export function renderItems(items) {
-  if (!items || items.length === 0) {
+ 
+// Renders a group as one wrapped block, example a stack of 3 images.
+function renderGroup(group) {
+  return `
+    <div class="pg-group pg-group--${escapeHtml(group.layout)}">
+      ${group.items.map(renderCard).join('')}
+    </div>
+  `;
+}
+ 
+// Main export: takes the slots array from applyCuration and returns HTML.
+export function renderItems(slots) {
+  if (!slots || slots.length === 0) {
     return '<div class="pg-empty">No items to display</div>';
   }
-
-  return `<div class="pg-grid">${items.map(renderItem).join('')}</div>`;
+ 
+  const html = slots
+    .map((slot) => (slot.type === 'group' ? renderGroup(slot) : renderCard(slot.item)))
+    .join('');
+ 
+  return `<div class="pg-grid">${html}</div>`;
 }
