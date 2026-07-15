@@ -1,6 +1,6 @@
 {
   "name": "portgrab",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A zero-backend JS library that fetches an artist's portfolio from Instagram, DeviantArt, and more, normalizing it into clean data.",
   "type": "module",
   "main": "./dist/portgrab.umd.js",
