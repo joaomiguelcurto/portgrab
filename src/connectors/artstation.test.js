@@ -2,6 +2,9 @@
 // Tests the ArtStation connector using fake network responses.
 // Run with: node src/connectors/artstation.test.js
 
+// The code below is kept as-is (untouched, logic still correct) in case
+// ArtStationss protection changes in the future, or this gets reused in some other way
+
 import { fetchArtStationPortfolio } from './artstation.js';
 
 const fakeProjectList = {
